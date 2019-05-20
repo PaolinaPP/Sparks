@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBConnection;
 import model.Users;
 
 
@@ -63,43 +64,18 @@ public class LoginServlet extends HttpServlet {
 		String pwd = request.getParameter("password");
 		String fname="", lname="", address="", egn="", password="", possition="", phone="", email="";
 		int id_car=0;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Where is your MySQL JDBC Driver?");
-			e.printStackTrace();
-			return;
-		}
-		java.sql.Connection conn = null;
-		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sparks?autoReconnect=true&useSSL=false","root", "P@ssw0rd!");
-		} catch (SQLException e) {
-			// TODO Auto-generated 
-			e.printStackTrace();
-		}
-		String selectSQL = "SELECT id,fname,lname,address,egn,password,possition,phone,email FROM users WHERE email=?";
 		
-		PreparedStatement st1 = null;
+		DBConnection conn = DBConnection.getInstance();
+		String selectSQL = "SELECT id,fname,lname,address,egn,password,possition,phone,email FROM users WHERE email='"+user+"'";
+		
+		ResultSet rs=null;
 		try {
-			st1 = (PreparedStatement) conn.prepareStatement(selectSQL);
+			rs = conn.query(selectSQL);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		try {
-			st1.setString(1, user);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		ResultSet rs = null;
-		try {
-			rs = st1.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		try {
 			while (rs.next()) {
 				id=rs.getInt("id");
@@ -129,15 +105,6 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(password.equals(hashedPassword)){
-			
-			/*try {
-				st1.setInt(1, id);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();		
-				u.setPossition(possition);
-
-			}*/
 			
 			u.setEmail(user);
 			u.setId(id);

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import db.DBConnection;
 import model.Cars;
 
 @WebServlet(name="findCar",  urlPatterns={"/findCars"})
@@ -35,15 +36,14 @@ public class findCar extends HttpServlet {
 	 */
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*ArrayList<Cars> cars=new ArrayList<Cars>();
+		ArrayList<Cars> cars=new ArrayList<Cars>();
 		boolean isfree=false;
-		//String carnum="", street="";
-		int carnum=0;
+		String carnum="", street="";
 		int battery=0, clean=0, car_id=0, town_id=0;
-		double moneypermin=0;*/
-		int carnum=0;
+		double moneypermin=0;
+		//int carnum=0;
 		System.out.println("here\n");
-		try {
+		/*try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			System.out.println("Where is your MySQL JDBC Driver?");
@@ -58,14 +58,20 @@ public class findCar extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO Auto-generated 
 			e.printStackTrace();
-		}
-		//String selectSQL = "SELECT id,carnum, battery, town_id, moneypermin, clean, isfree, street FROM cars";
-		String selectSQL = "SELECT id FROM cars";
+		}*/
+		String selectSQL = "SELECT id,carnum, battery, town_id, moneypermin, clean, isfree, street FROM cars";
+		//String selectSQL = "SELECT id FROM cars";
 		System.out.println("here\n");
-
+		DBConnection conn = DBConnection.getInstance();
 		ResultSet rs = null;
+		try {
+			rs = conn.query(selectSQL);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		HttpSession session = request.getSession();
-		PreparedStatement st1 = null;
+		/*PreparedStatement st1 = null;
 		try {
 			st1 = (PreparedStatement) conn.prepareStatement(selectSQL);
 			rs = st1.executeQuery();
@@ -73,26 +79,27 @@ public class findCar extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+		*/
 		
 		try {
 			while (rs.next()) {
-				//car_id=rs.getInt("id");
-				carnum=rs.getInt("id");
+				car_id=rs.getInt("id");
+				carnum=rs.getString("carnum");
 				System.out.println(carnum);
-				/*battery=rs.getInt("battery");
+				battery=rs.getInt("battery");
 				town_id=rs.getInt("town_id");
 				moneypermin=rs.getDouble("moneypermin");
 				clean=rs.getInt("clean");
 				isfree=rs.getBoolean("isfree");
-				street=rs.getString("street");*/
+				street=rs.getString("street");
+				cars.add(new Cars(car_id,carnum,battery,town_id,moneypermin,clean,isfree,street));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("id="+carnum);
+		
 		//session.setAttribute("id", carnum);
 		
 		
