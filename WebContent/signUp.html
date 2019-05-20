@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Регистрация</title>
+<link rel="stylesheet" type="text/css" href="sparks-css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="header">
+ Sparks
+</div>
+<div class="row">
+<div class="col-2 col-m-3 menu">
+<ul>
+<li onclick="parent.location='index.html'">Начало</li>
+<li onclick="parent.location='signUp.html'">Регистрация</li>
+<li onclick="parent.location='login.html'">Вход</li>
+</ul>
+					
+
+</div>
+<div class="col-7 col-m-9">
+<form class="contact_form" action="signup" method="POST" >
+	<div class="row">
+		<label for="fname" style="color:#0e1526">Enter your first name*:</label><br />
+		<input id="fname" class="input" name="fname" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="lname" style="color:#0e1526">Enter your last name*:</label><br />
+		<input id="lname" class="input" name="lname" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="address" style="color:#0e1526">Enter your address*:</label><br />
+		<input id="address" class="input" name="address" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="egn" style="color:#0e1526">Enter your egn*:</label><br />
+		<input id="egn" class="input" name="egn" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="email" style="color:#0e1526">Enter your email*:</label><br />
+		<input id="email" class="input" name="email" type="text" value="" size="50" /><br /> <br />
+	</div>
+	<div class="row">
+		<label for="phone" style="color:#0e1526">Enter your phone*:</label><br />
+		<input id="phone" class="input" name="phone" type="text" value="" size="50" /><br /> <br />
+	</div>
+	<div class="row">
+		<label for="password" style="color:#0e1526">Enter your password*:</label><br />
+		<input id="password" class="input" name="password" type="text" value="" size="50" /><br /> <br />
+	</div>
+	<div class="row">
+		<label for="bankcard" style="color:#0e1526">Enter your bankcard*:</label><br />
+		<input id="bankcard" class="input" name="bankcard" type="text" value="" size="50" /><br /> <br />
+	</div>
+	<div class="row">
+		<label for="photo"> Driving license:  </label>
+        <input type="file" name="photo" size="50" placeholder="Upload Your Image" /><br><br>
+	</div>
+	<input class="submit_button" type="submit" value="Sign Up" /> <br />
+	</form>
+</div>
+
+<div class="col-3 col-m-12">
+……
+</div>
+</div>
+
+<div class="footer">
+Sparks | All rights reserved. 2019
+</div>
+</body>
+</html>

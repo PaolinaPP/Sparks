@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Регистрация</title>
+<link rel="stylesheet" type="text/css" href="sparks-css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="header">
+ Sparks
+</div>
+<div class="row">
+<div class="col-2 col-m-3 menu">
+<ul>
+<li onclick="parent.location='profile.jsp'">Моят профил</li>
+<li onclick="parent.location='addTrip.html'">Добави пътуване</li>
+<li onclick="parent.location='trips.jsp'">Моите пътувания</li>
+<li onclick="parent.location='bonuses.html'">Моите бонуси</li>
+<li onclick="parent.location='changePassword.html'">Промени парола</li>
+<li onclick="parent.location='CheckoutPage.jsp'">Изход</li>
+
+</ul>
+					
+
+</div>
+<div class="col-7 col-m-9">
+<form class="contact_form" action="signup" method="POST" >
+	<div class="row">
+		<label for="car_id" style="color:#0e1526">Enter car id*:</label><br />
+		<input id="car_id" class="input" name="car_id" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="startpoint" style="color:#0e1526">Enter start point*:</label><br />
+		<input id="startpoint" class="input" name="startpoint" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="endpoint" style="color:#0e1526">Enter end point*:</label><br />
+		<input id="endpoint" class="input" name="endpoint" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="distance" style="color:#0e1526">Enter distance*:</label><br />
+		<input id="distance" class="input" name="distance" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<input class="submit_button" type="submit" value="Sign Up" /> <br />
+	</form>
+</div>
+
+<div class="col-3 col-m-12">
+……
+</div>
+</div>
+
+<div class="footer">
+Sparks | All rights reserved. 2019
+</div>
+</body>
+</html>
