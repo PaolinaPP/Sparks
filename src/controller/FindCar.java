@@ -18,9 +18,9 @@ import javax.servlet.http.HttpSession;
 import db.DBConnection;
 import model.Cars;
 
-@WebServlet(name="findCar",  urlPatterns={"/findCars"})
+@WebServlet(name="FindCar",  urlPatterns={"/findCars"})
 @MultipartConfig(maxFileSize = 16177215) 
-public class findCar extends HttpServlet {
+public class FindCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	
