@@ -31,13 +31,27 @@
 <div class="col-7 col-m-9">
 <div id="box1">
        <div id="login">
-<form class="contact_form" method="get" action="login"  >
+<form class="contact_form" method="get" action="findCars"  >
     
 <%
-//allow access only if session exists
-int id=0;
-//id=(Integer) session.getAttribute("id");
-out.print(id+" ");
+List<Cars> std = new ArrayList<Cars>();
+std.addAll((ArrayList<Cars>)request.getAttribute("cars"));
+       // std= (ArrayList<Cars>)request.getAttribute("cars"); 
+        if(std.isEmpty()==false){
+		       for(Cars s:std){
+		      
+		          
+		               out.print(s.getId()+ " ");
+		               out.print(s.getCarnum()+ " ");
+		               out.print(s.getBattery()+ " ");
+		               out.print(s.getClean()+ " ");
+		               out.print(s.getTown_id()+ " ");
+		               out.print(s.getMoneypermin()+ "");
+		               out.print(s.getStreet()+ " \n\n");
+
+           
+                }
+		 }
 %>
 
 <br>

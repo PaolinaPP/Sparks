@@ -59,8 +59,7 @@ public class MyTrips extends HttpServlet {
 				startpoint=rs.getString("startpoint");
 				endpoint=rs.getString("endpoint");
 				car_id = rs.getInt("car_id");
-				Trips tr=new Trips(trip_id,LoginServlet.id,distance,price,startpoint,endpoint,car_id);
-				trips.add(tr);
+				trips.add(new Trips(trip_id,LoginServlet.id,distance,price,startpoint,endpoint,car_id));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

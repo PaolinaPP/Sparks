@@ -41,24 +41,7 @@ public class FindCar extends HttpServlet {
 		String carnum="", street="";
 		int battery=0, clean=0, car_id=0, town_id=0;
 		double moneypermin=0;
-		//int carnum=0;
-		System.out.println("here\n");
-		/*try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			System.out.println("Where is your MySQL JDBC Driver?");
-			e.printStackTrace();
-			return;
-		}
-		java.sql.Connection conn = null;
-		System.out.println("here\n");
-
-		try {
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sparks?autoReconnect=true&useSSL=false","root", "P@ssw0rd!");
-		} catch (SQLException e) {
-			// TODO Auto-generated 
-			e.printStackTrace();
-		}*/
+		
 		String selectSQL = "SELECT id,carnum, battery, town_id, moneypermin, clean, isfree, street FROM cars";
 		//String selectSQL = "SELECT id FROM cars";
 		System.out.println("here\n");
@@ -71,15 +54,6 @@ public class FindCar extends HttpServlet {
 			e1.printStackTrace();
 		}
 		HttpSession session = request.getSession();
-		/*PreparedStatement st1 = null;
-		try {
-			st1 = (PreparedStatement) conn.prepareStatement(selectSQL);
-			rs = st1.executeQuery();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		*/
 		
 		try {
 			while (rs.next()) {
@@ -92,16 +66,22 @@ public class FindCar extends HttpServlet {
 				clean=rs.getInt("clean");
 				isfree=rs.getBoolean("isfree");
 				street=rs.getString("street");
-				cars.add(new Cars(car_id,carnum,battery,town_id,moneypermin,clean,isfree,street));
+				if(isfree)	
+					cars.add(new Cars(car_id,carnum,battery,town_id,moneypermin,clean,isfree,street));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		session.setAttribute("cars", cars);
+
 		
-		
-		//session.setAttribute("id", carnum);
-		
+		try {
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}

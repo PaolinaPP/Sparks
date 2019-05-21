@@ -31,7 +31,7 @@
 <div class="col-7 col-m-9">
 <div id="box1">
        <div id="login">
-<form class="contact_form" method="get" action="login"  >
+<form class="contact_form" method="get" action="trips"  >
     
     <%
 //allow access only if session exists
@@ -49,10 +49,10 @@ for(Cookie cookie : cookies){
 <div style="color:black;">
 <%
 List<Trips> std = new ArrayList<Trips>();
-        std= (ArrayList<Trips>)request.getAttribute("trips"); 
+std.addAll((ArrayList<Trips>)request.getAttribute("trips"));
+       // std= (ArrayList<Trips>)request.getAttribute("trips"); 
         if(std.isEmpty()==false){
-        for(Trips s:std){
-       
+        	for(Trips s:std){
            
                 out.print(s.getStartpoint()+ " ");
                 out.print(s.getEndpoint()+ " ");
@@ -61,7 +61,9 @@ List<Trips> std = new ArrayList<Trips>();
                 out.print(s.getCar_id()+ "\n\n");
                
            
-            }}%> 
+            }
+        }
+%> 
 </div>
 <br>
 </form>
