@@ -3,6 +3,9 @@
     <%@ page import="java.util.ArrayList" %>
     <%@page import="java.util.List"%>
     <%@ page import="model.Bonuses" %>
+    <%@ page import="controller.LoginServlet" %>
+    <%@ page import="db.DBConnection" %>
+     <%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,36 +36,25 @@
        <div id="login">
 <form class="contact_form" method="get" action="bonuses"  >
     
-    <%
-//allow access only if session exists
-String userName = null;
-String sessionID = null;
-Cookie[] cookies = request.getCookies();
-if(cookies !=null){
-for(Cookie cookie : cookies){
-	if(cookie.getName().equals("user")) userName = cookie.getValue();
-	if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-}
-}
-%>
-<br>
-<div style="color:black;">
 <%
-List<Bonuses> std = new ArrayList<Bonuses>();
-//std.addAll((ArrayList<Trips>)request.getAttribute("trips"));
-       std= (ArrayList<Bonuses>)request.getSession().getAttribute("bonuses"); 
-        if(std!=null && std.isEmpty()==false){
-        	for(Bonuses s:std){
-           
-                out.print(s.getId()+ " ");
-                out.print(s.getDescription()+ " ");
-                out.print(s.getValue()+ " ");
-                out.print(s.getCar_id()+ "\n\n");
-               
-           
-            }
-        }
-%> 
+DBConnection conn = DBConnection.getInstance();
+String selectSQL="SELECT * from bonuses where client_id="+LoginServlet.id;
+
+ResultSet rs = null;
+rs = conn.query(selectSQL);
+
+while (rs.next()) {%>
+
+<TR>
+    <TD>Bonus id : <%= rs.getInt("id") %></td>
+    <TD>Client id:  <%= rs.getInt("client_id") %></TD>
+    <TD>Value: <%= rs.getDouble("value") %></TD>
+    <TD>Description: <%= rs.getString("description") %></TD>
+    <TD>Emloyee_id: <%= rs.getInt("employee_id") %></TD>
+    <TD>Car id: <%= rs.getInt("car_id") %></TD></br></br>
+</TR>
+	
+<%}    %> 
 </div>
 <br>
 </form>

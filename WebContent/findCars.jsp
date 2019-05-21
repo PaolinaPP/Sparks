@@ -3,6 +3,8 @@
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="model.Cars" %>
     <%@page import="java.util.List"%>
+     <%@ page import="db.DBConnection" %>
+     <%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,27 +35,27 @@
        <div id="login">
 <form class="contact_form" method="get" action="findCars"  >
     
-<%
-List<Cars> std = new ArrayList<Cars>();
-//std.addAll((ArrayList<Cars>)request.getAttribute("cars"));
-        std= (ArrayList<Cars>)request.getSession().getAttribute("cars"); 
-       if(std!=null && std.isEmpty()==false){
-		       for(Cars s:std){
-		      
-		          
-		               out.print(s.getId()+ " ");
-		               out.print(s.getCarnum()+ " ");
-		               out.print(s.getBattery()+ " ");
-		               out.print(s.getClean()+ " ");
-		               out.print(s.getTown_id()+ " ");
-		               out.print(s.getMoneypermin()+ "");
-		               out.print(s.getStreet()+ " \n\n");
-
-           
-                }
-		 }
-       
-%>
+<% 
+		String selectSQL = "SELECT id,carnum, battery, town_id, moneypermin, clean, isfree, street FROM cars";
+		DBConnection conn = DBConnection.getInstance();
+		ResultSet rs = null;
+		
+		rs = conn.query(selectSQL);
+		
+		
+		while (rs.next()) {%>
+		<TR>
+                <TD>Car id : <%= rs.getInt("id") %></td>
+                <TD>Car number:  <%= rs.getString("carnum") %></TD>
+                <TD>Car battery: <%= rs.getInt("battery") %></TD>
+                <TD>Town id: <%= rs.getInt("town_id") %></TD>
+                <TD>Money per minute: <%= rs.getDouble("moneypermin") %></TD>
+                <TD>Clean percent: <%= rs.getInt("clean") %></TD>
+                <TD>Street: <%= rs.getString("street") %></TD></br></br>
+            </TR>
+			
+			
+		<%}%>
 
 <br>
 </form>

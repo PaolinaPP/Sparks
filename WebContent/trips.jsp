@@ -3,6 +3,9 @@
     <%@ page import="java.util.ArrayList" %>
     <%@page import="java.util.List"%>
     <%@ page import="model.Trips" %>
+    <%@ page import="controller.LoginServlet" %>
+    <%@ page import="db.DBConnection" %>
+     <%@ page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,37 +36,30 @@
        <div id="login">
 <form class="contact_form" method="get" action="trips"  >
     
-    <%
-//allow access only if session exists
-String userName = null;
-String sessionID = null;
-Cookie[] cookies = request.getCookies();
-if(cookies !=null){
-for(Cookie cookie : cookies){
-	if(cookie.getName().equals("user")) userName = cookie.getValue();
-	if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-}
-}
-%>
+ 
 <br>
 <div style="color:black;">
 <%
-List<Trips> std = new ArrayList<Trips>();
-//std.addAll((ArrayList<Trips>)request.getAttribute("trips"));
-       std= (ArrayList<Trips>)request.getSession().getAttribute("trips"); 
-        if(std!=null && std.isEmpty()==false){
-        	for(Trips s:std){
-           
-                out.print(s.getStartpoint()+ " ");
-                out.print(s.getEndpoint()+ " ");
-                out.print(s.getDistance()+ " ");
-                out.print(s.getPrice()+ " ");
-                out.print(s.getCar_id()+ "\n\n");
-               
-           
-            }
-        }
-%> 
+DBConnection conn = DBConnection.getInstance();
+String selectSQL="SELECT * from trips where client_id="+LoginServlet.id;
+
+ResultSet rs = null;
+
+	rs = conn.query(selectSQL);
+
+
+while (rs.next()) {%>
+	
+	<TR>
+    <TD>Trip id : <%= rs.getInt("id") %></td>
+    <TD>Trip distance:  <%= rs.getDouble("distance") %></TD>
+    <TD>Trip price: <%= rs.getDouble("price") %></TD>
+    <TD>Trip start point: <%= rs.getString("startpoint") %></TD>
+    <TD>Trip end point: <%= rs.getString("endpoint") %></TD>
+    <TD>Car id: <%= rs.getInt("car_id") %></TD></br></br>
+</TR>
+	
+<%}%> 
 </div>
 <br>
 </form>

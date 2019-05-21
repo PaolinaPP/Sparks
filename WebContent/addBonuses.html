@@ -1,0 +1,61 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Add Bonus</title>
+<link rel="stylesheet" type="text/css" href="sparks-css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="header">
+ Sparks
+</div>
+<div class="row">
+<div class="col-2 col-m-3 menu">
+<ul>
+<li onclick="parent.location='profile.jsp'">Моят профил</li>
+<li onclick="parent.location='addBonuses.html'">Добави бонуси</li>
+<li onclick="parent.location='changePassword.html'">Промени парола</li>
+<li onclick="parent.location='CheckoutPage.jsp'">Изход</li>
+
+</ul>
+					
+
+</div>
+<div class="col-7 col-m-9">
+<form class="contact_form" action="addBonuses" method="POST" >
+	<div class="row">
+		<label for="client_id" style="color:#0e1526">Enter client id*:</label><br />
+		<input id="client_id" class="input" name="client_id" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="value" style="color:#0e1526">Enter bonus value*:</label><br />
+		<input id="value" class="input" name="value" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<div class="row">
+		<label for="description" style="color:#0e1526">Enter bonus description*:</label><br />
+		<input id="description" class="input" name="description" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	
+	<div class="row">
+		<label for="car_id" style="color:#0e1526">Enter car id*:</label><br />
+		<input id="car_id" class="input" name="car_id" type="text" value="" size="50"  height="15px"/><br /> <br />
+	</div>
+	<input class="submit_button" type="submit" value="AddBonus" /> <br />
+	</form>
+</div>
+
+<div class="col-3 col-m-12">
+……
+</div>
+</div>
+<div class="footerholder">
+<div class="footer">
+Sparks | All rights reserved. 2019
+</div>
+</div>
+</body>
+</body>
+</html>

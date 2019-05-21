@@ -58,7 +58,6 @@ public class FindCar extends HttpServlet {
 			while (rs.next()) {
 				car_id=rs.getInt("id");
 				carnum=rs.getString("carnum");
-				System.out.println(carnum);
 				battery=rs.getInt("battery");
 				town_id=rs.getInt("town_id");
 				moneypermin=rs.getDouble("moneypermin");
