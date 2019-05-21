@@ -37,7 +37,6 @@ public class ChangePassword extends HttpServlet {
 		String newPwd2=request.getParameter("newPassword2");
 		@SuppressWarnings("unused")
 		String name="";
-		int id=0;
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -53,7 +52,7 @@ public class ChangePassword extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String selectSQL = "SELECT id,password FROM users WHERE email=?";
+		String selectSQL = "SELECT password FROM users WHERE email=?";
 		PreparedStatement st1 = null;
 		try {
 			st1 = (PreparedStatement) conn.prepareStatement(selectSQL);
@@ -79,7 +78,6 @@ public class ChangePassword extends HttpServlet {
 		}
 		try {
 			while (rs.next()) {
-				id=rs.getInt("id");
 				password = rs.getString("password");
 			}
 		} catch (SQLException e) {

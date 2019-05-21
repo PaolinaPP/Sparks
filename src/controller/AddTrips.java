@@ -28,28 +28,19 @@ public class AddTrips extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int car_id = 0;
 		double moneypermin=0;
-		double distance=0;
 		double price=0;
-		//Users u=new Users();
-		try {
-			car_id = ((ResultSet) request).getInt("car_id");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		@SuppressWarnings("unused")
+		int res=0;
+		String car_id = request.getParameter("car_id");
+		int c_id=Integer.parseInt(car_id);
 		String startpoint=request.getParameter("startpoint");
 		String endpoint=request.getParameter("endpoint");
-		try {
-			distance=((ResultSet) request).getDouble("distance");
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		String distance=request.getParameter("distance");
+		double d=Double.parseDouble(distance);
 		
 		DBConnection conn = DBConnection.getInstance();
-		String query = "select moneypermin from cars where id="+car_id;
+		String query = "select moneypermin from cars where id="+c_id;
 		ResultSet rs=null;
 		try {
 			rs = conn.query(query);
@@ -66,23 +57,29 @@ public class AddTrips extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        price = distance*moneypermin;
-        String query2 = "insert into trips(client_id,distance,price,startpoint,endpoint,car_id) values("+LoginServlet.id+","+distance+","+price+","+startpoint+","+endpoint+","+car_id+")";
+        price = d*moneypermin;
+        String query2 = "insert into trips(client_id,distance,price,startpoint,endpoint,car_id) values("+LoginServlet.id+","+d+","+price+",'"+startpoint+"','"+endpoint+"',"+c_id+")";
        try {
-		@SuppressWarnings("unused")
-		int res=conn.insert(query2);
+			res=conn.insert(query2);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+       String sql="update  cars set street='"+endpoint+"' where id="+c_id;
+       try {
+		res=conn.insert(sql);
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
         try {
 			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	        //response.sendRedirect("login.html");
+	    response.sendRedirect("addTrip.html");
 	
 		
 		
