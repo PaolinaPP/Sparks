@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="model.Users" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <%@ page import="java.util.ArrayList" %>
+    <%@page import="java.util.List"%>
+    <%@ page import="model.Bonuses" %>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>Моят профил</title>
+<meta charset="UTF-8">
+<title>Trips</title>
 <link rel="stylesheet" type="text/css" href="sparks-css.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -26,26 +27,14 @@
 <li onclick="parent.location='CheckoutPage.jsp'">Изход</li>
 
 </ul>
-					
-
 </div>
 <div class="col-7 col-m-9">
 <div id="box1">
        <div id="login">
-<form class="contact_form" method="get" action="login"  >
+<form class="contact_form" method="get" action="bonuses"  >
     
     <%
 //allow access only if session exists
-String fname=(String) session.getAttribute("fname");
-String lname=(String) session.getAttribute("lname");
-String address=(String) session.getAttribute("address");
-String egn=(String) session.getAttribute("egn");
-String possition=(String) session.getAttribute("possition");
-String phone=(String) session.getAttribute("phone");
-String email=(String) session.getAttribute("email");
-String user = (String) session.getAttribute("user");
-//int id=(Integer) session.getAttribute("id_car");
-//out.print(id+"\n ");
 String userName = null;
 String sessionID = null;
 Cookie[] cookies = request.getCookies();
@@ -56,13 +45,24 @@ for(Cookie cookie : cookies){
 }
 }
 %>
-<h1 style="color:black;">Hello, <%=fname %> <%=lname %>.</h1>
 <br>
 <div style="color:black;">
-Email: <%=address %> </br>
-EGN: <%=egn %> </br>
-Position: <%=possition %> </br>
-Phone: <%=phone %> </br>
+<%
+List<Bonuses> std = new ArrayList<Bonuses>();
+//std.addAll((ArrayList<Trips>)request.getAttribute("trips"));
+       std= (ArrayList<Bonuses>)request.getSession().getAttribute("bonuses"); 
+        if(std!=null && std.isEmpty()==false){
+        	for(Bonuses s:std){
+           
+                out.print(s.getId()+ " ");
+                out.print(s.getDescription()+ " ");
+                out.print(s.getValue()+ " ");
+                out.print(s.getCar_id()+ "\n\n");
+               
+           
+            }
+        }
+%> 
 </div>
 <br>
 </form>

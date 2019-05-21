@@ -22,7 +22,7 @@
 <li onclick="parent.location='addTrip.html'">Добави пътуване</li>
 <li onclick="parent.location='findCars.jsp'">Намери кола</li>
 <li onclick="parent.location='trips.jsp'">Моите пътувания</li>
-<li onclick="parent.location='bonuses.html'">Моите бонуси</li>
+<li onclick="parent.location='bonuses.jsp'">Моите бонуси</li>
 <li onclick="parent.location='changePassword.html'">Промени парола</li>
 <li onclick="parent.location='CheckoutPage.jsp'">Изход</li>
 
@@ -49,9 +49,9 @@ for(Cookie cookie : cookies){
 <div style="color:black;">
 <%
 List<Trips> std = new ArrayList<Trips>();
-std.addAll((ArrayList<Trips>)request.getAttribute("trips"));
-       // std= (ArrayList<Trips>)request.getAttribute("trips"); 
-        if(std.isEmpty()==false){
+//std.addAll((ArrayList<Trips>)request.getAttribute("trips"));
+       std= (ArrayList<Trips>)request.getSession().getAttribute("trips"); 
+        if(std!=null && std.isEmpty()==false){
         	for(Trips s:std){
            
                 out.print(s.getStartpoint()+ " ");

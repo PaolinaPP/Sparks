@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,37 +15,35 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import db.DBConnection;
-import model.Cars;
+import model.Bonuses;
 
-@WebServlet(name="FindCar",  urlPatterns={"/findCars"})
+@WebServlet(name="MyTrips",  urlPatterns={"/trips"})
 @MultipartConfig(maxFileSize = 16177215) 
-public class FindCar extends HttpServlet {
+public class MyBonuses extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Cars> cars=new ArrayList<Cars>();
-
-		boolean isfree=false;
-		String carnum="", street="";
-		int battery=0, clean=0, car_id=0, town_id=0;
-		double moneypermin=0;
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int b_id=0,c_id=0,e_id=0,car_id=0;
+		double value=0;
+		String descr="";
+		ArrayList<Bonuses> bonuses=new ArrayList<Bonuses>();
 		
-		String selectSQL = "SELECT id,carnum, battery, town_id, moneypermin, clean, isfree, street FROM cars";
-		//String selectSQL = "SELECT id FROM cars";
-		System.out.println("here\n");
+		
 		DBConnection conn = DBConnection.getInstance();
+		String selectSQL="SELECT * from bonuses where client_id="+LoginServlet.id;
+		HttpSession session = request.getSession();
+
 		ResultSet rs = null;
 		try {
 			rs = conn.query(selectSQL);
@@ -54,30 +51,24 @@ public class FindCar extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		HttpSession session = request.getSession();
-		
 		try {
 			while (rs.next()) {
-				car_id=rs.getInt("id");
-				carnum=rs.getString("carnum");
-				System.out.println(carnum);
-				battery=rs.getInt("battery");
-				town_id=rs.getInt("town_id");
-				moneypermin=rs.getDouble("moneypermin");
-				clean=rs.getInt("clean");
-				isfree=rs.getBoolean("isfree");
-				street=rs.getString("street");
-				
-				if(isfree)	
-					cars.add(new Cars(car_id,carnum,battery,town_id,moneypermin,clean,isfree,street));
+				b_id=rs.getInt("id");
+				c_id=rs.getInt("client_id");
+				value=rs.getDouble("value");
+				descr=rs.getString("description");
+				e_id=rs.getInt("employee_id");
+				car_id = rs.getInt("car_id");
+				bonuses.add(new Bonuses(b_id,c_id,value,descr,e_id,car_id));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		session.setAttribute("cars", cars);
-		
-		
+		session.setAttribute("bonuses", bonuses);
+		request.getRequestDispatcher("bonuses.jsp").forward(request, response);
+
+	   
 		try {
 			rs.close();
 		} catch (SQLException e) {
@@ -89,3 +80,5 @@ public class FindCar extends HttpServlet {
 	}
 
 }
+
+

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import db.DBConnection;
 import model.Trips;
@@ -43,7 +44,8 @@ public class MyTrips extends HttpServlet {
 		
 		DBConnection conn = DBConnection.getInstance();
 		String selectSQL="SELECT * from trips where client_id="+LoginServlet.id;
-	
+		HttpSession session = request.getSession();
+
 		ResultSet rs = null;
 		try {
 			rs = conn.query(selectSQL);
@@ -65,7 +67,7 @@ public class MyTrips extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		request.setAttribute("trips", trips);
+		session.setAttribute("trips", trips);
 		request.getRequestDispatcher("trips.jsp").forward(request, response);
 
 	   

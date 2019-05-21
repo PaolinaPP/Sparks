@@ -22,7 +22,7 @@
 <li onclick="parent.location='addTrip.html'">Добави пътуване</li>
 <li onclick="parent.location='findCars.jsp'">Намери кола</li>
 <li onclick="parent.location='trips.jsp'">Моите пътувания</li>
-<li onclick="parent.location='bonuses.html'">Моите бонуси</li>
+<li onclick="parent.location='bonuses.jsp'">Моите бонуси</li>
 <li onclick="parent.location='changePassword.html'">Промени парола</li>
 <li onclick="parent.location='CheckoutPage.jsp'">Изход</li>
 
@@ -35,9 +35,9 @@
     
 <%
 List<Cars> std = new ArrayList<Cars>();
-std.addAll((ArrayList<Cars>)request.getAttribute("cars"));
-       // std= (ArrayList<Cars>)request.getAttribute("cars"); 
-        if(std.isEmpty()==false){
+//std.addAll((ArrayList<Cars>)request.getAttribute("cars"));
+        std= (ArrayList<Cars>)request.getSession().getAttribute("cars"); 
+       if(std!=null && std.isEmpty()==false){
 		       for(Cars s:std){
 		      
 		          
@@ -52,6 +52,7 @@ std.addAll((ArrayList<Cars>)request.getAttribute("cars"));
            
                 }
 		 }
+       
 %>
 
 <br>
