@@ -56,6 +56,17 @@
 			
 			
 		<%}%>
+		<%!
+		/*public void func(){
+		DBConnection conn = DBConnection.getInstance();
+		String a = request.getParameter("id");
+		int id=Integer.parseInt(a);
+		String sql="update  cars set isfree=false where id="+id;
+	    if(a != null){
+	        int res=conn.insert(sql);
+	        
+	     }
+	    }*/ %>
 
 <br>
 </form>
@@ -64,7 +75,8 @@
 </div>
 
 <div class="col-3 col-m-12">
-……
+<p><input type="text" name="id" value="" placeholder="Car id"></p>
+<input class="submit_button" name="carId" type="submit" value="Reserve Car" />
 </div>
 </div>
 <div class="footerholder">

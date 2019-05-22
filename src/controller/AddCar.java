@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import db.DBConnection;
 
 
-@WebServlet(name="AddBonus",  urlPatterns={"/addBonuses"})
+@WebServlet(name="AddCar",  urlPatterns={"/addCar"})
 @MultipartConfig(maxFileSize = 16177215) 
-public class AddBonus extends HttpServlet {
+public class AddCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	
@@ -29,18 +29,16 @@ public class AddBonus extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		@SuppressWarnings("unused")
 		int res=0;
-		String car_id = request.getParameter("car_id");
-		String client=request.getParameter("client_id");
-		int c_id=Integer.parseInt(car_id);
-		int cl_id=Integer.parseInt(client);
-		
-		String description=request.getParameter("descripton");
-		String value=request.getParameter("value");
-		double v=Double.parseDouble(value);
+		String carnum = request.getParameter("carnum");
+		String town_id=request.getParameter("town_id");
+		String moneypermin=request.getParameter("moneypermin");
+		String street=request.getParameter("street");
+		int t_id=Integer.parseInt(town_id);
+		double mpm=Double.parseDouble(moneypermin);
 		
 		DBConnection conn = DBConnection.getInstance();
-		String query = "insert into bonuses(client_id,value,description,employee_id,car_id) values("+cl_id+","+v+",'"+description+"',"+LoginServlet.id+","+c_id+")";
-	//	String query="insert into bonuses(client_id,value,description,employee_id,car_id) values(16,12.30,'miene',19,1)";
+		
+		String query="insert into cars(carnum,battery,town_id,moneypermin,clean,isfree,street) values('"+carnum+"',100,"+t_id+","+mpm+",100,true,'"+street+"')";
 		try {
 			res=conn.insert(query);
 		} catch (SQLException e1) {

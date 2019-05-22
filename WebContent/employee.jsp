@@ -19,6 +19,7 @@
 <ul>
 <li onclick="parent.location='profile.jsp'">Моят профил</li>
 <li onclick="parent.location='addBonuses.html'">Добави бонуси</li>
+<li onclick="parent.location='addCar.html'">Добави кола</li>
 <li onclick="parent.location='changePassword.html'">Промени парола</li>
 <li onclick="parent.location='CheckoutPage.jsp'">Изход</li>
 
